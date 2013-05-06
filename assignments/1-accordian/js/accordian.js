@@ -1,7 +1,12 @@
 var createAccordian = function(accordianElem) {
-	// TODO: Implement createAccordian.
+  accordianElem.click(function(event) {
+    $(event.target).next().toggle(400);
+  });
+  accordianElem.next().hide();
 };
 
 $(document).ready(function() {
-	// TODO: Use createAccordian to made the FAQ page expandable and collapsible.
+  $.each($('.accordian'), function(i) {
+    createAccordian($(this));
+  });
 });
