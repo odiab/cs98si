@@ -1,6 +1,6 @@
 var createAccordian = function(accordianElem) {
   accordianElem.click(function(event) {
-    $(event.target).next().toggle(400);
+    $(event.target).next().slideToggle(400);
   });
   accordianElem.next().hide();
 };

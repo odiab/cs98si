@@ -1,27 +1,28 @@
 var validateField = function(fieldElem, infoMessage, validateFn) {
+  // if the associated span does not exist, add it in.
   if (fieldElem.is(':last-child')) {
     fieldElem.parent().append("<span></span>");
   }
+
   var formStatus = fieldElem.next();
   var inputValue = fieldElem.val();
+  formStatus.removeClass();
 
+  // separate case for gaining focus
   if (fieldElem.is(':focus')) {
     formStatus.text(infoMessage);
-    formStatus.removeClass();
     formStatus.addClass("info");
     return;
   }
 
+  // check empty string, valid, or invalid when losing focus.
   if (!inputValue) {
     formStatus.text("");
-    formStatus.removeClass();
   } else if (validateFn(fieldElem.val())) {
     formStatus.text("OK");
-    formStatus.removeClass();
     formStatus.addClass("ok");
   } else {
     formStatus.text("Error");
-    formStatus.removeClass();
     formStatus.addClass("error");
   }
 };
@@ -33,6 +34,7 @@ $(document).ready(function() {
     }
   }
 
+  // create event methods for each call. Specifies validation functions.
   var userHandler = createFormHandler(
     $('#username'),
     "Alphanumeric characters only.",
@@ -58,6 +60,7 @@ $(document).ready(function() {
     }
   );
 
+  // activate event handlers.
   $('#username').focus(userHandler);
   $('#password').focus(passwordHandler);
   $('#email').focus(emailHandler);
